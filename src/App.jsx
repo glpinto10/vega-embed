@@ -7,7 +7,7 @@ class App extends Component {
       <div>
         <div className="bg-dark-blue shadow text-light">
           <br />
-          <h1 className="text-center">Vega </h1>
+          <h1 className="text-center">Vega Embed</h1>
           <h5 className="text-center raleway">
             By{' '}
             <i>
