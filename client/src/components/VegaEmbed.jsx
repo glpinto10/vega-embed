@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
-import VegaEmbed from 'vega-embed';
+import VegaGraph from './VegaGraph';
 
-class VegaLite extends Component {
+class VegaEmbed extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      jsonToShow: { error: 'Empty JSON' }
+      jsonToShow: {}
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-    let json;
     try {
-      json = JSON.parse(event.target.value);
-      this.setState({ jsonToShow: json });
+      let showData = JSON.parse(event.target.value);
+      this.setState({ jsonToShow: showData });
     } catch (error) {
-      json = { error: 'Error in JSON' };
-      this.setState({ jsonToShow: json });
+      console.log(error);
     }
   }
 
@@ -40,21 +38,21 @@ class VegaLite extends Component {
             <textarea
               className="form-control"
               aria-label="With textarea"
-              rows="10"
+              rows="30"
               value={this.state.page}
               onChange={this.handleChange}
-            />
+            >
+              []
+            </textarea>
           </div>
         </div>
-        <div className="col-6">{JSON.stringify(this.state.jsonToShow)}</div>
-        {/* <div ref={div => (this.div = div)} /> */}
-        <div className="col-12">
-          <hr />
-          <h2 className="text-center">VEGA GRAPH</h2>
+        <div className="col-6 text-center mt-3">
+          <VegaGraph spec={this.state.jsonToShow} />
         </div>
+        <div className="col-12 mt-5" />
       </div>
     );
   }
 }
 
-export default VegaLite;
+export default VegaEmbed;

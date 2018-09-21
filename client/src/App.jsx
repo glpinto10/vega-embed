@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import VegaLite from './components/VegaLite';
+import VegaEmbed from './components/VegaEmbed';
 
 class App extends Component {
   render() {
@@ -24,7 +24,7 @@ class App extends Component {
           </h5>
         </div>
         <div className="container container-fluid mb-5">
-          <VegaLite />
+          <VegaEmbed />
         </div>
       </div>
     );

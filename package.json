@@ -1,24 +1,42 @@
 {
-  "name": "client",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "axios": "^0.18.0",
-    "react": "^16.5.0",
-    "react-dom": "^16.5.0",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
-    "vega-embed": "^3.20.0"
-  },
+  "name": "vega-embed",
+  "version": "1.0.0",
+  "author": "Gabriel Pinto",
+  "license": "MIT",
+  "description": "MERN that allow users to show data using VegaEmbed",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "node index",
+    "heroku-postbuild": "cd client/ && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "engines": {
+    "node": "8.11.1"
+  },
+  "cacheDirectories": [
+    "node_modules",
+    "client/node_modules"
+  ],
+  "keywords": [
+    "MongoDB",
+    "React JS",
+    "Express",
+    "Node JS"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/glpinto10/vega-embed"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongodb": "^3.1.6"
   },
   "devDependencies": {
-    "bootstrap": "^4.1.3",
-    "eslint": "^5.5.0"
+    "eslint": "^5.6.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0"
   }
 }
