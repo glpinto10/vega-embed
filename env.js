@@ -5,9 +5,9 @@ const fs = require('fs');
 if (fs.existsSync('client/build')) {
     process.env.NODE_ENV = 'production';
     process.env.databaseUri = process.env.MONGODB_URI;
-    process.env.databaseName = 'mernmoviesdb';
+    process.env.databaseName = 'vegaembeddb';
 } else {
     process.env.NODE_ENV = 'development';
     process.env.databaseUri = 'mongodb://localhost:27017';
-    process.env.databaseName = 'mernmoviesdb';
+    process.env.databaseName = 'vegaembeddb';
 }

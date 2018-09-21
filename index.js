@@ -23,11 +23,10 @@ const path = require('path');
 const port = process.env.PORT || 8080;
 
 // API route
-const apiRoute = "/mernMovies/";
+const apiRoute = "/vegaEmbed/api/";
 
-// API routes of movies
-//const movies = require('./routes/movies')(router);
-const movies = require('./routes/movies')(router);
+// API routes of ratings
+const ratings = require('./routes/ratings')(router);
 
 // JSON body request is configured
 app.use(
@@ -48,7 +47,7 @@ app.use(
 app.use(express.static(path.resolve(__dirname, 'client/build')));
 
 // Movies routes are used
-app.use(apiRoute, movies);
+app.use(apiRoute, ratings);
 
 // Connection to front
 app.get('*', function (request, response) {

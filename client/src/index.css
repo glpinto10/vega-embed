@@ -17,3 +17,7 @@ html {
 .raleway {
     font-family: 'Raleway', sans-serif;
 }
+
+.small-font {
+    font-size: 10px;
+}
