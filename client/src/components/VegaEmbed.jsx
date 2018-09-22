@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import InputJSON from './InputJSON';
+import Input from './Input';
 import axios from 'axios';
 
 class VegaEmbed extends Component {
@@ -167,7 +167,7 @@ class VegaEmbed extends Component {
 
   showSelectedOption(option) {
     let selected = [];
-    const botonRegreso = (
+    const backButton = (
       <div className="col-12 mt-3" key="selectionInputButton">
         <button
           type="button"
@@ -175,37 +175,27 @@ class VegaEmbed extends Component {
           onClick={() => this.changeOption(0)}
         >
           <i className="fas fa-arrow-left" />
-          &nbsp;Input selection
+          &nbsp;Home
         </button>
       </div>
     );
     if (option === 0) {
       selected.push(
-        <div className="col-12 text-center">
-          <h3 className="mb-3">How would you like to create the graph?</h3>
+        <div className="col-12 text-center" key="createGraph">
+          <h3 className="mb-3">Click the button whenever you want to start</h3>
           <button
             type="button"
             className="btn btn-primary mr-2 mb-2"
             onClick={() => this.changeOption(1)}
           >
             <i className="far fa-edit" />
-            &nbsp;Write JSON
-          </button>
-          <button
-            type="button"
-            className="btn btn-info ml-2 mb-2"
-            onClick={() => this.changeOption(2)}
-          >
-            <i className="fas fa-upload" />
-            &nbsp;Upload a CSV
+            &nbsp;Create my graph
           </button>
         </div>
       );
     } else if (option === 1) {
-      selected.push(botonRegreso);
-      selected.push(<InputJSON key="inputJson" />);
-    } else if (option === 2) {
-      selected.push(botonRegreso);
+      selected.push(backButton);
+      selected.push(<Input key="inputForm" />);
     }
     return selected;
   }
