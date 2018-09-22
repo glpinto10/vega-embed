@@ -7,16 +7,7 @@ class Input extends Component {
     super(props);
 
     this.state = {
-      jsonToShow: {
-        data: {
-          name: 'data'
-        },
-        mark: 'bar',
-        encoding: {
-          x: { field: 'a', type: 'ordinal' },
-          y: { field: 'b', type: 'quantitative' }
-        }
-      },
+      jsonToShow: null,
       errors: [],
       fileName: 'Choose a CSV file',
       data: []
@@ -109,7 +100,7 @@ class Input extends Component {
                 onChange={this.handleChange}
               />
             </div>
-            <br />
+            <hr />
             <h4>Spec working example</h4>
             <img
               src={require('../resources/spec.png')}
