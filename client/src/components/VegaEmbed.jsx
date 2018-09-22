@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import Input from './Input';
 import axios from 'axios';
+import Visualizations from './Visualizations';
 
 class VegaEmbed extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      option: 1,
+      option: 0,
       ratingUser: JSON.parse(localStorage.getItem('ratingVegaEmbedGP')),
       userRating: 5,
       userName: '',
+      visualizations: [],
       veRating: 'There are no'
     };
 
@@ -20,6 +22,7 @@ class VegaEmbed extends Component {
     this.handleChangeUserName = this.handleChangeUserName.bind(this);
     this.handleChangeRating = this.handleChangeRating.bind(this);
 
+    this.getVisualizations();
     this.getAverageRating();
   }
 
@@ -59,6 +62,34 @@ class VegaEmbed extends Component {
       average += rating.rating;
     });
     return average / ratings.length;
+  }
+
+  getVisualizations() {
+    axios.get(this.api + 'visualizations').then(res => {
+      const success = res.data.success;
+      if (success) {
+        let visualizations = res.data.visualizations;
+        this.setState({
+          visualizations: visualizations
+        });
+      }
+    });
+  }
+
+  showVisualizations(visualizations) {
+    if (visualizations.length !== 0) {
+      return (
+        <Visualizations key="visualizationsX" visualizations={visualizations} />
+      );
+    } else {
+      return (
+        <div className="col-12" key="noVisualizations">
+          <div className="alert alert-danger" role="alert">
+            There are no visualizations to show.
+          </div>
+        </div>
+      );
+    }
   }
 
   handleSubmitRating(event) {
@@ -213,6 +244,15 @@ class VegaEmbed extends Component {
         </div>
         {this.showSelectedOption(this.state.option)}
         <div className="col-12">
+          <hr />
+        </div>
+        <div className="col-12">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="text-center mb-2">Stored visualizations</h3>
+            </div>
+            {this.showVisualizations(this.state.visualizations)}
+          </div>
           <hr />
         </div>
         {this.showRatingOptions()}

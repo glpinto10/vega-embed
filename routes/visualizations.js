@@ -55,12 +55,11 @@ module.exports = router => {
     });
 
     // Get visualization by title, author and timestamp
-    router.get("/visualization/title/:title/username/:username/date/:date", (req, res) => {
+    router.get("/visualization/title/:title/username/:username", (req, res) => {
         let params = req.params;
 
         let title = params.title.replace(/_/g, " ");
         let username = params.username.replace(/_/g, " ");
-        let date = params.date;
 
         MongoClient.connect(config.uri, {
             useNewUrlParser: true
@@ -78,8 +77,7 @@ module.exports = router => {
 
             visualizationsC.findOne({
                 title: title,
-                username: username,
-                date: date
+                username: username
             }).then((visu) => {
                 if (!visu) {
                     res.json({
@@ -104,10 +102,9 @@ module.exports = router => {
         let spec = body.spec;
         let title = body.title;
         let username = body.username;
-        let date = new Date().getTime();
-        let data = body.data;
+        let date = body.date;
 
-        if (username && title && spec && data && date) {
+        if (username && title && spec && date) {
 
             MongoClient.connect(config.uri, {
                 useNewUrlParser: true
@@ -126,8 +123,7 @@ module.exports = router => {
                         username: username,
                         spec: spec,
                         title: title,
-                        date: date,
-                        data: data
+                        date: date
                     };
 
                     visualizationsC.insertOne(newVisualization, (error, response) => {

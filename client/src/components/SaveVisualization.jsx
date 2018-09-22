@@ -28,27 +28,34 @@ class SaveVisualization extends Component {
     } else {
       data = spec.data.values.slice();
     }
-    spec.data.values = [];
+    spec.data.values = data;
     let title = this.state.visualizationTitle;
     let user = this.state.username;
+    let date = new Date().getTime();
 
     axios
       .post(this.api + 'visualizations', {
         username: user,
         spec: spec,
         title: title,
-        data: data
+        date: date
       })
       .then(res => {
         let success = res.data.success;
         if (success) {
-          this.setState({
-            message: res.data.message,
-            saved: true
-          });
+          this.setState(
+            {
+              message: res.data.message,
+              saved: true
+            },
+            () => {
+              alert(res.data.message);
+              window.location.reload();
+            }
+          );
         } else {
           this.setState({
-            message: 'The visualization was not stored.',
+            message: res.data.message,
             saved: false
           });
         }
@@ -100,6 +107,7 @@ class SaveVisualization extends Component {
               required
             />
           </div>
+          <p className="small-font">The page will reload on successful save.</p>
           <button type="submit" className="btn btn-success">
             <i className="fas fa-save" />
             &nbsp;Save graph

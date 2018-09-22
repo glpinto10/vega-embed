@@ -4,6 +4,7 @@
 
 body {
     overflow-x: hidden;
+    font-family: 'Raleway', sans-serif;
 }
 
 html {
@@ -14,10 +15,10 @@ html {
     background-color: darkblue;
 }
 
-.raleway {
-    font-family: 'Raleway', sans-serif;
-}
-
 .small-font {
     font-size: 10px;
+}
+
+.zoom:hover {
+    transform: scale(1.1);
 }

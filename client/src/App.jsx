@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Route, Switch } from 'react-router-dom';
 import VegaEmbed from './components/VegaEmbed';
+import VegaEmbedDetail from './components/VegaEmbedDetail';
 
 class App extends Component {
   render() {
@@ -24,7 +26,14 @@ class App extends Component {
           </h5>
         </div>
         <div className="container container-fluid mb-5">
-          <VegaEmbed />
+          <Route exact path="/" component={VegaEmbed} />
+          <Switch>
+            <Route exact path="/visualizations" component={VegaEmbed} />
+            <Route
+              path="/visualization/title/:title/username/:username"
+              component={VegaEmbedDetail}
+            />
+          </Switch>
         </div>
       </div>
     );

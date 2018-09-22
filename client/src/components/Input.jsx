@@ -7,12 +7,20 @@ class Input extends Component {
     super(props);
 
     this.state = {
-      jsonToShow: null,
+      jsonToShow: {
+        data: {
+          name: 'data'
+        },
+        mark: 'bar',
+        encoding: {
+          x: { field: 'a', type: 'ordinal' },
+          y: { field: 'b', type: 'quantitative' }
+        }
+      },
       errors: [],
       fileName: 'Choose a CSV file',
       data: []
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleFileUpload = this.handleFileUpload.bind(this);
   }
@@ -101,10 +109,21 @@ class Input extends Component {
                 onChange={this.handleChange}
               />
             </div>
+            <br />
+            <h4>Spec working example</h4>
+            <img
+              src={require('../resources/spec.png')}
+              alt="Spec working example"
+              width="240px"
+            />
           </div>
           <div className="col-md-6 mt-3 col-12">
             {this.showErrors()}
-            <VegaGraph spec={this.state.jsonToShow} data={this.state.data} />
+            <VegaGraph
+              spec={this.state.jsonToShow}
+              data={this.state.data}
+              showDirectly={false}
+            />
           </div>
         </div>
       </div>

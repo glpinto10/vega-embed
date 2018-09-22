@@ -10,43 +10,62 @@ class VegaGraph extends Component {
       spec: {},
       error: '',
       success: false,
-      data: []
+      data: [],
+      showDirectly: props.showDirectly
     };
   }
 
   buildGraph() {
-    if (this.validateCorrectSpec()) {
-      let spec = this.state.spec;
-      let data = this.state.data;
-      if (data && data.length > 1) {
-        let values = this.operateSpecAndData(spec, data);
-        if (values !== null) {
-          // The used data is the one that comes from the file
-          spec.data = {};
-          spec.data.values = values;
-          vegaEmbed(this.div, this.state.spec, { defaultStyle: true })
-            .catch(error => {
-              this.setState({
-                error: error.toString(),
-                success: false
-              });
-              this.div.textContent = '';
-            })
-            .then(
-              this.setState({
-                error: '',
-                success: true,
-                spec: spec
+    if (!this.state.showDirectly) {
+      if (this.validateCorrectSpec()) {
+        let spec = this.state.spec;
+        let data = this.state.data;
+        if (data && data.length > 1) {
+          let values = this.operateSpecAndData(spec, data);
+          if (values !== null) {
+            // The used data is the one that comes from the file
+            spec.data = {};
+            spec.data.values = values;
+            vegaEmbed(this.div, this.state.spec, { defaultStyle: true })
+              .catch(error => {
+                this.setState({
+                  error: error.toString(),
+                  success: false
+                });
+                this.div.textContent = '';
               })
-            );
+              .then(
+                this.setState({
+                  error: '',
+                  success: true,
+                  spec: spec
+                })
+              );
+          }
+        } else {
+          this.setState({
+            error: 'There is no data to show. Please upload a file.',
+            success: false
+          });
+          this.div.textContent = '';
         }
-      } else {
-        this.setState({
-          error: 'There is no data to show. Please upload a file.',
-          success: false
-        });
-        this.div.textContent = '';
       }
+    } else {
+      vegaEmbed(this.div, this.state.spec, { defaultStyle: true })
+        .catch(error => {
+          this.setState({
+            error: error.toString(),
+            success: false
+          });
+          this.div.textContent = '';
+        })
+        .then(
+          this.setState({
+            error: '',
+            success: true,
+            spec: this.state.spec
+          })
+        );
     }
   }
 
