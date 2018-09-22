@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import vegaEmbed from 'vega-embed';
+import SaveVisualization from './SaveVisualization';
 
 class VegaGraph extends Component {
   constructor(props) {
@@ -20,6 +21,7 @@ class VegaGraph extends Component {
       if (data && data.length > 1) {
         let values = this.operateSpecAndData(spec, data);
         if (values !== null) {
+          // The used data is the one that comes from the file
           spec.data = {};
           spec.data.values = values;
           vegaEmbed(this.div, this.state.spec, { defaultStyle: true })
@@ -33,7 +35,8 @@ class VegaGraph extends Component {
             .then(
               this.setState({
                 error: '',
-                success: true
+                success: true,
+                spec: spec
               })
             );
         }
@@ -52,6 +55,7 @@ class VegaGraph extends Component {
     let encoding = spec.encoding;
     let keys = Object.keys(encoding);
 
+    // Checks if the number of encoding channels of the uploaded file and of the spec are the same
     if (encodedCSV !== keys.length) {
       this.setState({
         error:
@@ -62,6 +66,7 @@ class VegaGraph extends Component {
       return null;
     }
 
+    // Checks if the encoding fields are the same for the uploaded file and for the spec
     for (let index = 0; index < encodedCSV; index++) {
       if (data[0][index] !== encoding[keys[index]].field) {
         this.setState({
@@ -80,6 +85,7 @@ class VegaGraph extends Component {
 
     let valuesX = [];
 
+    // Create a data array that can be use to construct the graph
     for (let y = 1; y < data.length; y++) {
       const element = data[y];
       if (element.length !== encodedCSV) {
@@ -143,6 +149,10 @@ class VegaGraph extends Component {
     return true;
   }
 
+  componentDidMount() {
+    this.buildGraph();
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState(
       {
@@ -160,6 +170,7 @@ class VegaGraph extends Component {
       return (
         <div>
           <h5>Store your visualization</h5>
+          <SaveVisualization spec={this.state.spec} />
         </div>
       );
     } else {

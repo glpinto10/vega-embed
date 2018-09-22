@@ -23,10 +23,13 @@ const path = require('path');
 const port = process.env.PORT || 8080;
 
 // API route
-const apiRoute = "/vegaEmbed/api/";
+const apiRoute = "/vegaEmbed/api";
 
 // API routes of ratings
 const ratings = require('./routes/ratings')(router);
+
+// API routes of visualizations
+const visualizations = require('./routes/visualizations')(router);
 
 // JSON body request is configured
 app.use(
@@ -46,8 +49,11 @@ app.use(
 // Route of static files is defined
 app.use(express.static(path.resolve(__dirname, 'client/build')));
 
-// Movies routes are used
+// Ratings routes are used
 app.use(apiRoute, ratings);
+
+// Visualizations routes are used
+app.use(apiRoute, visualizations);
 
 // Connection to front
 app.get('*', function (request, response) {

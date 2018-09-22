@@ -73,19 +73,7 @@ class Input extends Component {
       <div className="col-12">
         <div className="row">
           <div className="col-md-6 mt-3 col-12">
-            <h3>Write the JSON</h3>
-            <div className="input-group mt-2">
-              <textarea
-                className="form-control"
-                aria-label="With textarea"
-                rows="10"
-                value={this.state.page}
-                onChange={this.handleChange}
-              />
-            </div>
-            <p className="small-font">
-              Only the data of the CSV will be used for making the graph
-            </p>
+            <h4>Upload the data</h4>
             <div className="input-group ">
               <br />
               <div className="custom-file">
@@ -99,6 +87,19 @@ class Input extends Component {
                   {this.state.fileName}
                 </label>
               </div>
+            </div>
+            <p className="small-font">
+              Only the data of the CSV will be used for making the graph
+            </p>
+            <hr />
+            <h4>Define the spec</h4>
+            <div className="input-group mt-2">
+              <textarea
+                className="form-control"
+                aria-label="With textarea"
+                rows="10"
+                onChange={this.handleChange}
+              />
             </div>
           </div>
           <div className="col-md-6 mt-3 col-12">

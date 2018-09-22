@@ -55,7 +55,7 @@ module.exports = router => {
         }
     });
 
-    // Get average rating
+    // Get all ratings
     router.get("/ratings", (req, res) => {
         MongoClient.connect(config.uri, {
             useNewUrlParser: true

@@ -7,7 +7,7 @@ class VegaEmbed extends Component {
     super(props);
 
     this.state = {
-      option: 0,
+      option: 1,
       ratingUser: JSON.parse(localStorage.getItem('ratingVegaEmbedGP')),
       userRating: 5,
       userName: '',
@@ -203,19 +203,19 @@ class VegaEmbed extends Component {
   render() {
     return (
       <div className="row">
-        {this.showSelectedOption(this.state.option)}
         <div className="col-12">
-          <hr />
-        </div>
-        {this.showRatingOptions()}
-        <div className="col-12">
-          <hr />
           <h3 className="text-center">
             {this.state.veRating}
             &nbsp;
             <i className="fas fa-star text-warning" />
           </h3>
+          <hr />
         </div>
+        {this.showSelectedOption(this.state.option)}
+        <div className="col-12">
+          <hr />
+        </div>
+        {this.showRatingOptions()}
       </div>
     );
   }
